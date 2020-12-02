@@ -1,5 +1,14 @@
 package pacApp.pacModel;
 
-public class Benutzer {
+public class Benutzer extends DbBaseModel {
 
+	private String Name;
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
 }

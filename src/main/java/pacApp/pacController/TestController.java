@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pacApp.pacDao.IBenutzerDao;
-import pacApp.pacDao.ITodoListe;
+import pacApp.pacDao.ITodoListeDao;
 import pacApp.pacModel.Benutzer;
 import pacApp.pacModel.Todo;
 import pacApp.pacModel.TodoListe;
@@ -20,7 +20,7 @@ public class TestController {
 	private IBenutzerDao benutzerDao;
 	
 	@Autowired
-	private ITodoListe todoListeDao;
+	private ITodoListeDao todoListeDao;
 	
 	@GetMapping("/createB")
 	public boolean createTestBenutzer() {		

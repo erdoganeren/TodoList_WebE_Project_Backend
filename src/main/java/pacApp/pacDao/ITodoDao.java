@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import pacApp.pacModel.Benutzer;
+import pacApp.pacModel.Todo;
 
 @Repository
-public interface IBenutzerDao extends JpaRepository<Benutzer, Long> {
-	List<Benutzer> findAllById(long id);
-	Benutzer findById(long id);
-	List<Benutzer> findByTodoListeId(long id);
+public interface ITodoDao extends JpaRepository<Todo, Long> {
+	List<Todo> findAllById(long id);
+	Todo findById(long id);
+	List<Todo> findByTodoListeId(long id);
 }

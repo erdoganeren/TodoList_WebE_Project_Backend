@@ -16,6 +16,9 @@ public class Todo extends DbBaseModel {
 
 	@Column(name = "isErledigt", nullable = false)
 	private boolean isErledigt;
+
+	@Column(name = "todoListeId")
+	private Long todoListeId;
 	
 	public String getTitel() {
 		return titel;

@@ -11,6 +11,9 @@ public class Benutzer extends DbBaseModel {
 	@Column(name = "Full_Name", length = 64, nullable = false)
 	private String fullName;
 
+	@Column(name = "todoListeId")
+	private Long todoListeId;
+	
 	public String getName() {
 		return fullName;
 	}

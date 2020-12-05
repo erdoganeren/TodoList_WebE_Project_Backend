@@ -1,14 +1,21 @@
 package pacApp.pacModel;
 
-public class Benutzer extends DbBaseModel {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-	private String Name;
+@Entity
+@Table(name = "Benutzer")
+public class Benutzer extends DbBaseModel {
+	
+	@Column(name = "Full_Name", length = 64, nullable = false)
+	private String fullName;
 
 	public String getName() {
-		return Name;
+		return fullName;
 	}
 
-	public void setName(String name) {
-		Name = name;
+	public void setName(String fullName) {
+		this.fullName = fullName;
 	}
 }

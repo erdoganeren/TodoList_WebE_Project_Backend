@@ -1,9 +1,20 @@
 package pacApp.pacModel;
 
-public class Todo extends DbBaseModel {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Todo")
+public class Todo extends DbBaseModel {
+	
+	@Column(name = "titel", length = 64, nullable = false)
 	private String titel; 
+
+	@Column(name = "text", length = 64, nullable = false)
 	private String text; 
+
+	@Column(name = "isErledigt", nullable = false)
 	private boolean isErledigt;
 	
 	public String getTitel() {

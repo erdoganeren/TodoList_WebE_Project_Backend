@@ -49,6 +49,17 @@ public class BenutzerController {
 		return new ResponseEntity<Benutzer>(new Benutzer(), HttpStatus.BAD_REQUEST);
 	}
 	
+	@GetMapping("/get/all/benutzer")
+	public ResponseEntity<List<Benutzer>> getAllBenutzer() {
+		try {
+			List<Benutzer> benList = benutzerDao.findAll();
+			return new ResponseEntity<List<Benutzer>>(benList, HttpStatus.OK);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<List<Benutzer>>(new ArrayList<Benutzer>(), HttpStatus.BAD_REQUEST);
+	}
+	
 	@GetMapping("/get/all/benutzer/{id}")
 	public ResponseEntity<List<Benutzer>> getAllBenutzerByTodoListeId(@PathVariable(value="id") String id) {
 		try {

@@ -57,8 +57,19 @@ public class TodoListeController {
 	}
 	
 	//Todo add Benutzer to TodoListe
-	
+		
 	//Todo add Todo to TodoListe
+	
+	@GetMapping("/get/all/todoListe")
+	public ResponseEntity<List<TodoListe>> getTodoList(){
+		try {
+			List<TodoListe> todoListe = todoListeDao.findAll();
+			return new ResponseEntity<List<TodoListe>>(todoListe, HttpStatus.OK);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);		
+		}
+	}
 	
 	@GetMapping("/get/todoListe/{id}")
 	public ResponseEntity<TodoListe> getTodoListById(@PathVariable(value="id") String id){
@@ -68,6 +79,26 @@ public class TodoListeController {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(new TodoListe(), HttpStatus.OK);		
+		}
+	}
+	
+	@GetMapping("/get/todoListeByBenutzerId/{id}")
+	public ResponseEntity<TodoListe> getTodoListByBenutzerId(@PathVariable(value="id") String id){
+		try {
+			List<TodoListe> tl  = todoListeDao.findAll(); 
+			
+			for (TodoListe t : tl) {
+				List<Benutzer> bl = t.getBenutzerList();
+				for (Benutzer b : bl) {
+					if (b.getId() == Long.parseLong(id))
+							return new ResponseEntity<TodoListe>(t, HttpStatus.OK);
+				}
+				
+			} 
+			return new ResponseEntity<TodoListe>(HttpStatus.NOT_FOUND);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(new TodoListe(), HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 	}
 	
@@ -90,8 +121,10 @@ public class TodoListeController {
 		TodoListe tListe = new TodoListe();
 		Benutzer ben1 = new Benutzer(); 
 		ben1.setName("TestUser1");
+		ben1.setPassword("pwd1");
 		Benutzer ben2 = new Benutzer(); 
 		ben2.setName("TestUser2");
+		ben2.setPassword("pwd2");
 		
 		List<Benutzer> benList = new ArrayList<Benutzer>();
 		benList.add(ben1);
@@ -106,10 +139,10 @@ public class TodoListeController {
 		tListe.setBenutzerList(benList);
 		tListe.setTodoList(todoList);
 		todoListeDao.save(tListe);
-		return false;
+		return true;
 	}
 	
-	@GetMapping("/getBenutzerListeJsonStruct")
+	@GetMapping("/getTodoListeJsonStruct")
 	public ResponseEntity<String> getBenutzerJsonStruct() {		
 		ObjectMapper mapper = new ObjectMapper();
 		try {

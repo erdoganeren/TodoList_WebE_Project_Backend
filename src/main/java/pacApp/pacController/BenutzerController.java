@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pacApp.pacDao.IBenutzerDao;
 import pacApp.pacModel.Benutzer;
+import pacApp.pacModel.Login;
 import pacApp.pacModel.pacResponse.GenericResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -88,6 +89,22 @@ public class BenutzerController {
 			response = new GenericResponse(HttpStatus.OK.value(), "Benutzer wurde nicht gelöscht!");			
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/login/benutzer")
+	public ResponseEntity<Long> loginBenutzer(@RequestBody Login login) {
+		try {
+			List<Benutzer> benList = benutzerDao.findAll(); 		
+			for(Benutzer ben: benList) {
+				if(ben.getName().equals(login.getName()) && ben.getPassword().equals(login.getPassword())) {
+					return new ResponseEntity<Long>(ben.getId(), HttpStatus.OK);
+				}
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Long>(-1l, HttpStatus.NOT_FOUND);
 	}
 	
 	@CrossOrigin(origins = "*")

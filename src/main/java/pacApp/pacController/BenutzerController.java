@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import pacApp.pacDao.IBenutzerDao;
 import pacApp.pacModel.Benutzer;
 import pacApp.pacModel.pacResponse.GenericResponse;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 public class BenutzerController {
@@ -25,6 +26,7 @@ public class BenutzerController {
 	@Autowired
 	private IBenutzerDao benutzerDao;
 	
+	@CrossOrigin(origins = "*")
 	@PostMapping("/create/benutzer")
 	public ResponseEntity<GenericResponse> createTodoListBenutzer(@RequestBody Benutzer ben) {
 		GenericResponse response = null;
@@ -38,6 +40,7 @@ public class BenutzerController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/get/benutzer/{id}")
 	public ResponseEntity<Benutzer> getTodoListeBenutzer(@PathVariable(value="id") String id) {
 		try {
@@ -49,6 +52,7 @@ public class BenutzerController {
 		return new ResponseEntity<Benutzer>(new Benutzer(), HttpStatus.BAD_REQUEST);
 	}
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/get/all/benutzer")
 	public ResponseEntity<List<Benutzer>> getAllBenutzer() {
 		try {
@@ -60,6 +64,7 @@ public class BenutzerController {
 		return new ResponseEntity<List<Benutzer>>(new ArrayList<Benutzer>(), HttpStatus.BAD_REQUEST);
 	}
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/get/all/benutzer/{id}")
 	public ResponseEntity<List<Benutzer>> getAllBenutzerByTodoListeId(@PathVariable(value="id") String id) {
 		try {
@@ -71,6 +76,7 @@ public class BenutzerController {
 		return new ResponseEntity<List<Benutzer>>(new ArrayList<Benutzer>(), HttpStatus.BAD_REQUEST);
 	}
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/delete/benutzer/{id}")
 	public ResponseEntity<GenericResponse> deleteTodoListeBenutzer(@PathVariable(value="id") String id) {
 		GenericResponse response = null;
@@ -84,6 +90,7 @@ public class BenutzerController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getBenutzerJsonStruct")
 	public String getBenutzerJsonStruct() {		
 		ObjectMapper mapper = new ObjectMapper();

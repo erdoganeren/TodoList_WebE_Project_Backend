@@ -129,6 +129,24 @@ public class TodoListeController {
 		return new ResponseEntity<>(response, HttpStatus.OK); 
 	}
 	
+	@PostMapping("/add/benutzer/{id}")
+	public ResponseEntity<GenericResponse> addTodoToTodoListe(@PathVariable(value="id") String todoListeId, @RequestBody Benutzer ben){
+		GenericResponse response = null;
+		try {
+			List<TodoListe> tl  = todoListeDao.findAll(); 			
+			for (TodoListe t : tl) {
+				if(todoListeId.equals(t.getId()+"")) {
+					t.getBenutzerList().add(ben);
+					todoListeDao.save(t);
+					response =   new GenericResponse(HttpStatus.OK.value(), "Benutzer wurde in die TodoListe hinzugefügt!");
+				}				
+			} 
+		}catch (IllegalArgumentException e) {
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(response, HttpStatus.OK); 
+	}
+	
 	@GetMapping("/delete/todo/{todoId}/TodoListe/{todoListeId}")
 	public ResponseEntity<GenericResponse> deleteTodoFromTodoList(@PathVariable(value="todoId") String todoId, @PathVariable(value="todoListeId") String todoListeId){
 		GenericResponse response = new GenericResponse(HttpStatus.OK.value(), "Todo wurde nicht gefunden!");;
